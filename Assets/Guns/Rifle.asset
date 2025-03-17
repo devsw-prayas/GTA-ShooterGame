@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599233cc40a99c941acc526bb50995b5, type: 3}
+  m_Name: Rifle
+  m_EditorClassIdentifier: 
+  name: AK
+  bullets: 24
+  magSize: 144
+  rpm: 400
+  reloadTime: 1.5
+  damage: 32
+  shotCount: 1
+  range: 30
+  reloading: 0
+  automatic: 1

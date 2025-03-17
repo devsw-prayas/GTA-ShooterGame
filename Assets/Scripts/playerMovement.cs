@@ -41,7 +41,7 @@ public class playerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * x * 0.4f + transform.forward * z; // I put to strafe left and right slower :)
+        Vector3 move =  x * 0.4f * transform.right + transform.forward * z; // I put to strafe left and right slower :)
         velocity.y -=  gravity * Time.deltaTime;
 
         controller.Move(Time.deltaTime * speed * move);
