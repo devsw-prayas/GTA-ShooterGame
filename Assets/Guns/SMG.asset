@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 599233cc40a99c941acc526bb50995b5, type: 3}
-  m_Name: Rifle
+  m_Name: SMG
   m_EditorClassIdentifier: 
-  name: AK
-  bullets: 24
-  magSize: 144
-  rpm: 400
-  reloadTime: 1.5
-  damage: 32
+  name: SMG
+  bullets: 30
+  magSize: 400
+  rpm: 800
+  reloadTime: 1.75
+  damage: 12
   shotCount: 1
-  range: 30
+  range: 20
   automatic: 1
   ADSAccuracy: 0
-  accuracy: 0.95
-  kickback: 1.6
+  accuracy: 0.9
+  kickback: 0.8

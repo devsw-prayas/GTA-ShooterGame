@@ -7,6 +7,8 @@ public class cameraEffects : MonoBehaviour
     public float amount = 0.002f;
     public float frequency = 10.0f;
     public float smooth = 10.0f;
+    float shakeAmount = 0;
+    public float sustain = 10f;
 
     Vector3 startPosition;
 
@@ -20,13 +22,15 @@ public class cameraEffects : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.LerpAngle(transform.eulerAngles.z, x * -2, 0.02f));
+        transform.eulerAngles = new Vector3(-shakeAmount, transform.eulerAngles.y, Mathf.LerpAngle(transform.eulerAngles.z, x * -2, 0.02f));
 
         if (x != 0 || z != 0) {
             headBob();
         } else {
             stopBob();
         }
+
+        shakeAmount = Mathf.Lerp(shakeAmount, 0, sustain * Time.deltaTime);
     }
 
     void headBob() {
@@ -38,5 +42,9 @@ public class cameraEffects : MonoBehaviour
 
     void stopBob() {
         transform.localPosition = Vector3.Lerp(transform.localPosition, startPosition, smooth * Time.deltaTime);
+    }
+
+    public void shake(float amount) {
+        shakeAmount += amount;
     }
 }

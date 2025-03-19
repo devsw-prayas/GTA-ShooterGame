@@ -10,8 +10,8 @@ public class GunData : ScriptableObject {
     public float damage;
     public int shotCount = 1;
     public float range;
-    public bool reloading;
     public bool automatic;
-    public float ADSaccuracy;
+    public float ADSAccuracy;
     public float accuracy;
+    public float kickback;
 }
