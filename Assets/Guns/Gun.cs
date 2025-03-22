@@ -68,7 +68,7 @@ public class Gun : MonoBehaviour
                     uIScript.addScore(10);
                     body.GetComponentInParent<EnemyScript>().applyDamage(5f * (hitInfo.point - cam.transform.position).normalized, dmg, false);
                 } else if (body.CompareTag("Head")) {
-                    dmg *= 2;
+                    dmg *= 4;
                     Vector2 point = cam.GetComponent<Camera>().WorldToScreenPoint(hitInfo.point);
                     GameObject indicator = Instantiate(damageIndicator, canvas);
                     indicator.GetComponent<RectTransform>().position = point;
@@ -78,7 +78,7 @@ public class Gun : MonoBehaviour
                 }
             } else {
                 TrailRenderer trailRenderer = Instantiate(trail, firePoint, Quaternion.identity);
-                StartCoroutine(SpawnTrail(trailRenderer, inaccurateShot * gunData.range));
+                StartCoroutine(SpawnTrail(trailRenderer, cam.transform.position + inaccurateShot * gunData.range));
             }
         }
         cam.GetComponentInParent<cameraEffects>().shake(gunData.kickback);

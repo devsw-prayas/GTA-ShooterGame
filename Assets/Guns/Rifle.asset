@@ -19,8 +19,8 @@ MonoBehaviour:
   reloadTime: 1.5
   damage: 32
   shotCount: 1
-  range: 30
+  range: 60
   automatic: 1
   ADSAccuracy: 0
-  accuracy: 0.95
+  accuracy: 0.975
   kickback: 1.6

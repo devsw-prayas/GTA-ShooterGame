@@ -19,9 +19,10 @@ public class EnemyScript : MonoBehaviour
     }
 
     public void applyDamage(Vector3 kickback, float damage, bool isHead) {
-        if (isHead) rbHead.AddForce(kickback, ForceMode.Impulse);
-        else rbBody.AddForce(kickback, ForceMode.Impulse);
         health -= damage;
         if (health <= 0) Destroy(gameObject);
+        if (rbHead == null) return;
+        if (isHead) rbHead.AddForce(kickback, ForceMode.Impulse);
+        else rbBody.AddForce(kickback, ForceMode.Impulse);
     }
 }
