@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Scripting.APIUpdating;
 
 public class playerMovement : MonoBehaviour
 {
@@ -35,7 +33,6 @@ public class playerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && isGrounded) {
             velocity.y = Mathf.Sqrt(2.0f * gravity * jumpHeight);
-            print("Jump");
         }
         
         float x = Input.GetAxis("Horizontal");

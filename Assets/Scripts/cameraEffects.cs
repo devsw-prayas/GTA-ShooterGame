@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class cameraEffects : MonoBehaviour
@@ -7,22 +5,31 @@ public class cameraEffects : MonoBehaviour
     public float amount = 0.002f;
     public float frequency = 10.0f;
     public float smooth = 10.0f;
+    public float knockbackFactor = 0.08f;
     float shakeAmount = 0;
     public float sustain = 10f;
+    public Transform weaponHolder;
 
     Vector3 startPosition;
+    Vector3 weaponRot;
+    float orgWeaponPositionY;
 
     void Start()
     {
         startPosition = transform.localPosition;
+        orgWeaponPositionY = weaponHolder.localPosition.y;
     }
     // Update is called once per frame
     void Update()
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+        float shk = Random.Range(-1f, 1f) * shakeAmount / 2 * 0.3f;
+        transform.eulerAngles = new Vector3(-shakeAmount, transform.eulerAngles.y, shk + Mathf.LerpAngle(transform.eulerAngles.z, x * -2, 0.02f));
 
-        transform.eulerAngles = new Vector3(-shakeAmount, transform.eulerAngles.y, Mathf.LerpAngle(transform.eulerAngles.z, x * -2, 0.02f));
+        weaponHolder.transform.localEulerAngles = new Vector3(shakeAmount, 0, 0);
+        shk *= knockbackFactor;
+        weaponHolder.localPosition = new Vector3(shk, orgWeaponPositionY + shk, -shakeAmount);
 
         if (x != 0 || z != 0) {
             headBob();
