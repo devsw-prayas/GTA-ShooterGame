@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
-using UnityEngine.Rendering.HighDefinition;
-using Unity.VisualScripting;
 
 public class Gun : MonoBehaviour
 {
@@ -20,6 +18,8 @@ public class Gun : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     Transform cam;
     UIScript uIScript;
+    public float inaccuracy;
+    float currentInaccuracy;
 
     void Start()
     {
@@ -35,6 +35,16 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentInaccuracy = (1 - gunData.accuracy) * inaccuracyFactor;
+        if (Input.GetKey(KeyCode.LeftControl)) currentInaccuracy = (1 - gunData.crouchAccuracy) * inaccuracyFactor;
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+        currentInaccuracy *= 1 + x*x * 0.5f + z*z;
+        
+        inaccuracy = Mathf.Lerp(inaccuracy, currentInaccuracy, 10 * Time.deltaTime);
+
+
+        
         if (isReloading) return;
         
         firePoint = transform.GetChild(0).position;
@@ -51,9 +61,9 @@ public class Gun : MonoBehaviour
 
     void shoot() {
         for (int i = 0; i < gunData.shotCount; i++) {
-            float k = (1 - gunData.accuracy) * inaccuracyFactor;
-            float delx = Random.Range(-k, k);
-            float dely = Random.Range(-k, k);
+            inaccuracy += currentInaccuracy;
+            float delx = Random.Range(-inaccuracy, inaccuracy);
+            float dely = Random.Range(-inaccuracy, inaccuracy);
             Vector3 inaccurateShot = cam.transform.forward + cam.transform.right * delx + cam.transform.up * dely;
             if (Physics.Raycast(cam.transform.position, inaccurateShot, out RaycastHit hitInfo, gunData.range)) {
                 Transform body = hitInfo.transform;
@@ -66,7 +76,8 @@ public class Gun : MonoBehaviour
                     indicator.GetComponent<RectTransform>().position = point;
                     indicator.GetComponent<TextMeshProUGUI>().text = dmg.ToString();
                     uIScript.addScore(10);
-                    body.GetComponentInParent<EnemyScript>().applyDamage(5f * (hitInfo.point - cam.transform.position).normalized, dmg, false);
+                    EnemyScript parent = body.GetComponentInParent<EnemyScript>();
+                    if (parent) parent.applyDamage(5f * (hitInfo.point - cam.transform.position).normalized, dmg, false);
                 } else if (body.CompareTag("Head")) {
                     dmg *= 4;
                     Vector2 point = cam.GetComponent<Camera>().WorldToScreenPoint(hitInfo.point);
@@ -74,7 +85,8 @@ public class Gun : MonoBehaviour
                     indicator.GetComponent<RectTransform>().position = point;
                     indicator.GetComponent<TextMeshProUGUI>().text = dmg.ToString();
                     uIScript.addScore(30);
-                    body.GetComponentInParent<EnemyScript>().applyDamage(5f * (hitInfo.point - cam.transform.position).normalized, dmg, true);
+                    EnemyScript parent = body.GetComponentInParent<EnemyScript>();
+                    if (parent) parent.applyDamage(5f * (hitInfo.point - cam.transform.position).normalized, dmg, true);
                 }
             } else {
                 TrailRenderer trailRenderer = Instantiate(trail, firePoint, Quaternion.identity);
@@ -95,6 +107,7 @@ public class Gun : MonoBehaviour
     }
 
     IEnumerator reload() {
+        inaccuracy = 0;
         isReloading = true;
         yield return new WaitForSeconds(gunData.reloadTime);
         int loads = Mathf.Min(mags, magSize);

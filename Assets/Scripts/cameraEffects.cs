@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class cameraEffects : MonoBehaviour
 {
@@ -13,11 +15,16 @@ public class cameraEffects : MonoBehaviour
     Vector3 startPosition;
     Vector3 weaponRot;
     float orgWeaponPositionY;
+    float lastYpos;
+    public float jumpEffectIntensity = 10;
+    float jumpEffect = 0;
+    public playerMovement movement;
 
     void Start()
     {
         startPosition = transform.localPosition;
         orgWeaponPositionY = weaponHolder.localPosition.y;
+        lastYpos = transform.position.y;
     }
     // Update is called once per frame
     void Update()
@@ -25,7 +32,10 @@ public class cameraEffects : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         float shk = Random.Range(-1f, 1f) * shakeAmount / 2 * 0.3f;
-        transform.eulerAngles = new Vector3(-shakeAmount, transform.eulerAngles.y, shk + Mathf.LerpAngle(transform.eulerAngles.z, x * -2, 0.02f));
+        jumpEffect = Mathf.Lerp(jumpEffect, movement.velocity.y, 0.4f);
+        jumpEffect *= jumpEffectIntensity;
+        float k = -shakeAmount + jumpEffect;
+        transform.localEulerAngles = new Vector3(k, 0, shk + Mathf.LerpAngle(transform.eulerAngles.z, x * -2, 0.02f));
 
         weaponHolder.transform.localEulerAngles = new Vector3(shakeAmount, 0, 0);
         shk *= knockbackFactor;
@@ -38,6 +48,7 @@ public class cameraEffects : MonoBehaviour
         }
 
         shakeAmount = Mathf.Lerp(shakeAmount, 0, sustain * Time.deltaTime);
+        lastYpos = transform.position.y;
     }
 
     void headBob() {

@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599233cc40a99c941acc526bb50995b5, type: 3}
   m_Name: ShotGun
   m_EditorClassIdentifier: 
-  name: Shotgun
   bullets: 5
   magSize: 25
   rpm: 80
   reloadTime: 2
-  damage: 80
-  shotCount: 5
+  damage: 100
+  shotCount: 7
   range: 20
   automatic: 0
-  ADSAccuracy: 0
-  accuracy: 0.82
+  crouchAccuracy: 0.93
+  accuracy: 0.87
   kickback: 11.25

@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599233cc40a99c941acc526bb50995b5, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: 
-  name: AK
   bullets: 24
   magSize: 144
   rpm: 400
@@ -21,6 +20,6 @@ MonoBehaviour:
   shotCount: 1
   range: 60
   automatic: 1
-  ADSAccuracy: 0
+  crouchAccuracy: 0.985
   accuracy: 0.975
   kickback: 1.6

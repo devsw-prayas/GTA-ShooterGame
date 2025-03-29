@@ -38,10 +38,14 @@ public class playerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
+        float crouchDelta;
+        if (Input.GetKey(KeyCode.LeftControl)) crouchDelta = 0.2f;
+        else crouchDelta = 1;
+
         Vector3 move =  x * 0.4f * transform.right + transform.forward * z; // I put to strafe left and right slower :)
         velocity.y -=  gravity * Time.deltaTime;
 
-        controller.Move(Time.deltaTime * speed * move);
+        controller.Move(Time.deltaTime * crouchDelta * speed * move);
         controller.Move(Time.deltaTime * velocity);
     }
 }

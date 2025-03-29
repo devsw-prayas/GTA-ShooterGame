@@ -721,7 +721,7 @@ GameObject:
   - component: {fileID: 424225625}
   - component: {fileID: 424225624}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1476,7 +1476,7 @@ GameObject:
   - component: {fileID: 669562362}
   - component: {fileID: 669562361}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1726,6 +1726,8 @@ MonoBehaviour:
   knockbackFactor: 0.1
   sustain: 10
   weaponHolder: {fileID: 1419952116}
+  jumpEffectIntensity: 1
+  movement: {fileID: 1225201648}
 --- !u!1 &873647090
 GameObject:
   m_ObjectHideFlags: 0
@@ -1738,7 +1740,7 @@ GameObject:
   - component: {fileID: 873647093}
   - component: {fileID: 873647092}
   m_Layer: 5
-  m_Name: Image
+  m_Name: right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1829,13 +1831,13 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1619776864}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 105, y: 50}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1156624560
@@ -1951,10 +1953,9 @@ GameObject:
   - component: {fileID: 1202920621}
   - component: {fileID: 1202920620}
   - component: {fileID: 1202920619}
-  - component: {fileID: 1202920625}
   m_Layer: 0
   m_Name: Statue
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2087,19 +2088,6 @@ Transform:
   - {fileID: 1958102144}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1202920625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1202920618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acf6d7e048039a0499d5f2337cbd66c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 400
 --- !u!1 &1225201642
 GameObject:
   m_ObjectHideFlags: 0
@@ -2442,6 +2430,11 @@ MonoBehaviour:
   timeLabel: {fileID: 280680659}
   healthLabel: {fileID: 686703539}
   player: {fileID: 1225201647}
+  left: {fileID: 1708048865}
+  right: {fileID: 873647091}
+  up: {fileID: 424225623}
+  down: {fileID: 669562360}
+  crosshairScaleFactor: 1000
 --- !u!1 &1482785972
 GameObject:
   m_ObjectHideFlags: 0
@@ -2505,11 +2498,11 @@ RectTransform:
   - {fileID: 1756062432}
   m_Father: {fileID: 2012040550}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -450.25, y: -186.63}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &1662078574 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 670482966378865669, guid: c92a7fa59e5261b478c677ad5c076489, type: 3}
@@ -2532,12 +2525,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5b2b18ac77a414d97da14d69fa1eec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunData: {fileID: 11400000, guid: 84e2e70d2cd4c964d952518d3a377537, type: 2}
+  gunData: {fileID: 11400000, guid: 586b56cf8bdb31d469a133d05c95e228, type: 2}
   isReloading: 0
   damageIndicator: {fileID: 2733984938390728224, guid: a3550ac6768507c4e9b114f01cccd5b7, type: 3}
   canvas: {fileID: 2012040550}
   trail: {fileID: 4716033561316020425, guid: df5151ff4aa37124faa463c957d3d102, type: 3}
   inaccuracyFactor: 0.5
+  inaccuracy: 0
 --- !u!1 &1683047869
 GameObject:
   m_ObjectHideFlags: 0
@@ -2590,7 +2584,7 @@ GameObject:
   - component: {fileID: 1708048867}
   - component: {fileID: 1708048866}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2681,13 +2675,13 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1619776864}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: -35}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 105, y: 15}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1756062433
