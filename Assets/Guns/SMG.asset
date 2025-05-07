@@ -20,6 +20,6 @@ MonoBehaviour:
   shotCount: 1
   range: 60
   automatic: 1
-  crouchAccuracy: 0.97
-  accuracy: 0.93
+  crouchAccuracy: 0.98
+  accuracy: 0.96
   kickback: 0.8

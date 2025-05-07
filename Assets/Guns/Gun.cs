@@ -42,14 +42,12 @@ public class Gun : MonoBehaviour
         currentInaccuracy *= 1 + x*x * 0.5f + z*z;
         
         inaccuracy = Mathf.Lerp(inaccuracy, currentInaccuracy, 10 * Time.deltaTime);
-
-
         
         if (isReloading) return;
         
         firePoint = transform.GetChild(0).position;
 
-        bool shootInput = gunData.automatic ? Input.GetMouseButton(0): Input.GetMouseButtonDown(0);
+        bool shootInput = gunData.automatic ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0);
         if (shootInput && timeSinceLastShot > fireDelay) {
             if (bullets > 0) shoot();
             else StartCoroutine(reload());
