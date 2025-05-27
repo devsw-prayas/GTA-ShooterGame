@@ -7,23 +7,31 @@ public class UIScript : MonoBehaviour
     public TextMeshProUGUI bulletLabel, magLabel, scoreLabel, timeLabel, healthLabel;
     Gun currentGun;
     public Transform player;
+    public Transform panel;
     Health playerHealth;
+
+    bool started = false;
 
     int score = 0;
     float timeLeft = 60.0f;
     public RectTransform left, right, up, down; //crosshair
     public float crosshairScaleFactor = 5000;
 
+    public GameObject pistol;
+    public GameObject chainGun;
+    public GameObject shotGun;
+
     void Start() {
-        currentGun = transform.GetChild(0).GetComponent<Gun>();
         playerHealth = player.GetComponent<Health>();
     }
 
     void Update()
     {
+        if (!started || currentGun == null) return;
         timeLeft -= Time.deltaTime;
-        if (currentGun.isReloading) {
-            bulletLabel.text = "...";
+        if (currentGun.isReloading)
+        {
+            bulletLabel.text = "RLDNG";
             return;
         }
         bulletLabel.text = currentGun.getBullets().ToString();
@@ -31,9 +39,34 @@ public class UIScript : MonoBehaviour
         timeLabel.text = "Time Left:\n" + Mathf.Round(timeLeft).ToString() + "s";
         healthLabel.text = "Health: " + Mathf.Round(playerHealth.health).ToString();
         setCrosshair();
+        if (timeLeft <= 0) started = false;
     }
 
-    public void addScore(int s) {
+    public void start(int GunID)
+    {
+        GameObject g = pistol;
+        switch (GunID)
+        {
+            case 0:
+                g = pistol;
+                break;
+            case 1:
+                g = chainGun;
+                break;
+            case 2:
+                g = shotGun;
+                break;
+        }
+
+        GameObject gun = Instantiate(g, transform);
+        currentGun = transform.GetChild(0).GetComponent<Gun>();
+        Cursor.lockState = CursorLockMode.Locked;
+        started = true;
+        Destroy(panel.gameObject);
+    }
+
+    public void addScore(int s)
+    {
         score += s;
         scoreLabel.text = "Score: " + score.ToString();
     }

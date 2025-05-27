@@ -18,7 +18,7 @@ MonoBehaviour:
   reloadTime: 1.5
   damage: 32
   shotCount: 1
-  range: 60
+  range: 240
   automatic: 1
   crouchAccuracy: 0.985
   accuracy: 0.975

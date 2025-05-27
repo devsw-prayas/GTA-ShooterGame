@@ -10,7 +10,7 @@ public class Gun : MonoBehaviour
     int bullets, mags, magSize;
     public bool isReloading = false;
     public GameObject damageIndicator;
-    public Transform canvas;
+    Transform canvas;
     public TrailRenderer trail;
     public float inaccuracyFactor = 10;
 
@@ -30,6 +30,7 @@ public class Gun : MonoBehaviour
         cam = transform.parent.parent;
         firePoint = transform.GetChild(0).position;
         uIScript = transform.GetComponentInParent<UIScript>();
+        canvas = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
     // Update is called once per frame
